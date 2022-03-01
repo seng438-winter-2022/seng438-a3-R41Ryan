@@ -18,8 +18,7 @@ public class RangeTest {
 	decimalRange = new Range(-5.567,8.546);
     }
 
-    //getCentralValue Method Testing
-    
+    //getCentralValue Method Testing    
     @Test
     // This tests for the central value of a range spanning from negative to positive values
     public void centralValueMixedRange() {
