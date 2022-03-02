@@ -646,4 +646,39 @@ public class DataUtilitiesTest {
 		assertEquals(results.getValue(1).doubleValue(), 1.5, 0.001d);
 		assertEquals(results.getValue(2).doubleValue(), 1.0, 0.001d);
 	}
+	
+	//clone() method tests
+	@Test
+	//Tests the clone method with a full 2D array
+	public void testFullClone() {
+		double[][] original = {{10.5, 20.24}, {4.2, 14.52}};
+		double[][] clone = DataUtilities.clone(original);
+		boolean result = DataUtilities.equal(original, clone);
+	       //Assert
+		assertTrue("Arrays should be equal", result);
+	}
+	
+	@Test
+	//Tests the clone method with a 2D array with a null entry
+	public void testNullClone() {
+		double[][] original = {{10.5, 20.24}, null, {4.2, 14.52}};
+		double[][] clone = DataUtilities.clone(original);
+		boolean result = DataUtilities.equal(original, clone);
+	       //Assert
+		assertTrue("Arrays should be equal", result);
+	}
+	
+	//createNumberArray2D() test
+	@Test
+	//Tests the method using positive decimals
+	public void testCreateNumberArray2D() {
+		double[][] testArray = {{2.3, 0.4, 1.0}, {5.4}, {0.001, 8.20}};
+		Number[][] result = DataUtilities.createNumberArray2D(testArray);
+		assertEquals(result[0][0].doubleValue(), 2.3, 0.0000001d);
+		assertEquals(result[0][1].doubleValue(), 0.4, 0.0000001d);
+		assertEquals(result[0][2].doubleValue(), 1.0, 0.0000001d);
+		assertEquals(result[1][0].doubleValue(), 5.4, 0.0000001d);
+		assertEquals(result[2][0].doubleValue(), 0.001, 0.0000001d);
+		assertEquals(result[2][1].doubleValue(), 8.20, 0.0000001d);
+	}
 }
