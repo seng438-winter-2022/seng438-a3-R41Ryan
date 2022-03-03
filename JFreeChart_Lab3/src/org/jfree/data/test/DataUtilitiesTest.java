@@ -202,6 +202,76 @@ public class DataUtilitiesTest {
 			double results = DataUtilities.calculateColumnTotal(null, 0);
 			assertEquals(results, 4.75, 0.0000001d);
 		}
+	
+		@Test
+		// This tests to see if the method works with row 0 in the positive bound
+ 		public void testCalculateRowValidColumns() {
+			Mockery context = new Mockery();
+			final Values2D values = context.mock(Values2D.class);
+			context.checking(new Expectations() {
+				{
+					one(values).getColumnCount();
+					will(returnValue(5));
+					one(values).getValue(0, 0);
+					will(returnValue(2));
+					one(values).getValue(0, 1);
+					will(returnValue(3.75));
+					one(values).getValue(0, 2);
+					will(returnValue(-1));
+					one(values).getValue(0, 3);
+					will(returnValue(-0.35));
+					one(values).getValue(0, 4);
+					will(returnValue(-1.5));
+				}
+			});
+			int[] validColumns = {0, 1, 2};
+			double results = DataUtilities.calculateRowTotal(values, 0, validColumns);
+			assertEquals(results, 4.75, 0.0000001d);
+		}
+	    
+	    @Test(expected = IndexOutOfBoundsException.class)
+		// This tests to see if the method works when array of columns is invalid
+ 		public void testCalculateRowInvalidNumberOfColumns() {
+			Mockery context = new Mockery();
+			final Values2D values = context.mock(Values2D.class);
+			context.checking(new Expectations() {
+				{
+					one(values).getColumnCount();
+					will(returnValue(5));
+					one(values).getValue(0, 0);
+					will(returnValue(null));
+				}
+			});
+			int[] invalidColumns = {9};
+			double results = DataUtilities.calculateRowTotal(values, 0, invalidColumns);
+			assertEquals(results, 0, .000000001d);
+		}
+	    
+	   	 @Test
+		// This tests to see if the method works when one of the values is null
+ 		public void testCalculateRowValidColumnsNullValue() {
+			Mockery context = new Mockery();
+			final Values2D values = context.mock(Values2D.class);
+			context.checking(new Expectations() {
+				{
+					one(values).getColumnCount();
+					will(returnValue(5));
+					one(values).getValue(0, 0);
+					will(returnValue(2));
+					one(values).getValue(0, 1);
+					will(returnValue(null));
+					one(values).getValue(0, 2);
+					will(returnValue(-1));
+					one(values).getValue(0, 3);
+					will(returnValue(-0.35));
+					one(values).getValue(0, 4);
+					will(returnValue(-1.5));
+				}
+			});
+			int[] validColumns = {0, 1, 2};
+			double results = DataUtilities.calculateRowTotal(values, 0, validColumns);
+			assertEquals(results, 1, 0.0000001d);
+		}
 	    
 	    @Test
 	    //This test is for checking if two equal arrays are equal.
@@ -341,6 +411,33 @@ public class DataUtilitiesTest {
 	       //Assert
 		assertTrue("Arrays should be equal with negative values",result);
 	    }
+	
+	    @Test
+	    //This tests for when the first array is null while the second array is not null
+	    public void NonEqualArraysWithFirstArrayNullSecondArrayNotNull() {
+	    	   //Arrange
+			double[][] arrayOne = null;
+			double[][] arrayTwo = {	{-10.5, 20.24},
+									{4.2, -14.52} };
+		       //Act
+			boolean result = DataUtilities.equal(arrayOne, arrayTwo);
+		       //Assert
+			assertFalse("Arrays should not be equal due to first array being null and second array not being null",result);
+	    }
+	    
+	    @Test
+	    //This tests for when the first array is not null while the second array is null
+	    public void NonEqualArraysWithFirstArrayNotNullSecondArrayNull() {
+	    	   //Arrange
+			double[][] arrayOne = {	{-10.5, 20.24},
+									{4.2, -14.52} };
+			double[][] arrayTwo = null;
+		       //Act
+			boolean result = DataUtilities.equal(arrayOne, arrayTwo);
+		       //Assert
+			assertFalse("Arrays should not be equal due to first array being not null and second array being null",result);
+	    }
+	
 	@Test
 	// This is just a basic test with positive values to see if it works as intended using column 0
 	public void testBasicCalculateColumnTotal() {
