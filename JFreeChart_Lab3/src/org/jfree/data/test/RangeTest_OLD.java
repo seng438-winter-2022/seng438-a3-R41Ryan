@@ -2,7 +2,7 @@ package org.jfree.data.test;
 
 import static org.junit.Assert.*; import org.jfree.data.Range; import org.junit.*;
 
-public class RangeTest {
+public class RangeTest_OLD {
     private Range exampleRange, exampleRangePositive, exampleRangeNegative, exampleRangeZero,exampleLargeRange, decimalRange;
     @BeforeClass public static void setUpBeforeClass() throws Exception {
     }
