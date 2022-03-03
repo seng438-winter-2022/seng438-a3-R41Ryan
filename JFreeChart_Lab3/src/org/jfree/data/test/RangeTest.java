@@ -3,7 +3,7 @@ package org.jfree.data.test;
 import static org.junit.Assert.*; import org.jfree.data.Range; import org.junit.*;
 
 public class RangeTest {
-    private Range exampleRange, exampleRangePositive, exampleRangeNegative, exampleRangeZero,exampleLargeRange, decimalRange;
+    private Range exampleRange, exampleRangePositive, exampleRangeNegative, exampleRangeZero,exampleLargeRange, decimalRange, NaNRange;
     @BeforeClass public static void setUpBeforeClass() throws Exception {
     }
 
@@ -15,10 +15,11 @@ public class RangeTest {
     	exampleRangeNegative = new Range(-100,-1);
     	exampleRangeZero = new Range(0,0);
     	exampleLargeRange = new Range(-1000000000,1000000000);
-	decimalRange = new Range(-5.567,8.546);
+    	decimalRange = new Range(-5.567,8.546);
+    	NaNRange = new Range(Double.NaN,Double.NaN);
     }
-
-    //getCentralValue Method Testing    
+    
+    //	getCentralValue Method Testing    
     @Test
     // This tests for the central value of a range spanning from negative to positive values
     public void centralValueMixedRange() {
@@ -90,7 +91,7 @@ public class RangeTest {
     	assertTrue("The value 0 is in the range 0 to 0", exampleRangeZero.contains(0));
     }
     
-    //getLength method testing
+    //	getLength method testing
     
     @Test
     // This tests a range that spans from negative to positive
@@ -129,7 +130,7 @@ public class RangeTest {
         14.113, decimalRange.getLength(), .000000001d);
     }
     
-    // getLowerBound() testing
+    //	getLowerBound() testing
     @Test
     // Tests a range with a negative lower bound
     public void testNegativeLowerBound() {
@@ -210,7 +211,7 @@ public class RangeTest {
     	-1000000000, exampleRange.getLowerBound(), .000000001d);
     }
     
-    // getUpperBound() testing
+    //	getUpperBound() testing
     @Test
     // Tests a range with a negative upper bound
     public void testNegativeUpperBound() {
@@ -290,8 +291,270 @@ public class RangeTest {
     	assertEquals("The upper bound of -1000000001 and -1000000000 should be -1000000000",
     	-1000000000, exampleRange.getUpperBound(), .000000001d);
     }
+    // Test for the range constructor, this time intentionally passing incompatible arguments.
+    @Test(expected = IllegalArgumentException.class)
+    public void testConstructorLowerGreaterThanUpper() {
+    	exampleRange = new Range(1, -1);
+    }
+    // Tests for the intersects method
+    @Test
+    public void testIntersectsRangeLowerBound() {
+    	assertTrue("The range -15,-5 should intersect with the range -10,10",
+    	exampleRange.intersects(-15,5));
+    }
+    @Test
+    public void testIntersectsRangeIntersectsUpperBound() {
+    	assertTrue("The range 5,15 should intersect with the range -10,10",
+    	exampleRange.intersects(5,15));
+    }
+    @Test
+    public void testIntersectsRangeBelow() {
+    	assertFalse("The range -15,-11 should not intersect with the range -10,10",
+    	exampleRange.intersects(-15,-11));
+    }
+    @Test
+    public void testIntersectsRangeAbove() {
+    	assertFalse("The range 11,15 should not intersect with the range -10,10",
+    	exampleRange.intersects(11,15));
+    }
+    @Test
+    public void testIntersectsRangeArgsSwapped() {
+    	assertFalse("The range 5,-15 is an unsupported argument value",
+    	exampleRange.intersects(5,-15));
+    }
+    @Test
+    public void testIntersectsOverload() {
+    	Range intersectsRange = new Range(-15,-5);
+    	assertTrue("The range -15,-5 should intersect with the range -10,10",
+    	exampleRange.intersects(intersectsRange));
+    }
     
-
+    //	Tests for the constrain method
+    @Test
+    public void testConstrainValueInRange() {
+    	assertEquals("The value 0 is in the range -10,10",
+    	0, exampleRange.constrain(0),.000000001d);
+    }
+    @Test
+    public void testConstrainValueAboveRange() {
+    	assertEquals("The value 10 is closest to the value given: 11",
+    	10, exampleRange.constrain(11),.000000001d);
+    }
+    @Test
+    public void testConstrainValueBelowRange() {
+    	assertEquals("The value -10 is closest to the value given: -11",
+    	-10, exampleRange.constrain(-11),.000000001d);
+    }
+    
+    //	Tests for combine method
+    @Test
+    public void testCombineRange2Null() {
+    	assertTrue("If range 2 is null range 1 is returned",
+		exampleRange.equals(Range.combine(exampleRange,null)));
+    }
+    @Test
+    public void testCombineRange1Null() {
+    	assertTrue("If range 1 is null range 2 is returned",
+		exampleRange.equals(Range.combine(null,exampleRange)));
+    }
+    @Test
+    public void testCombine2ValidRanges() {
+    	Range combinedRange = new Range(-10,100);
+    	assertTrue("Expects a range from -10 to 100",
+		combinedRange.equals(Range.combine(exampleRangePositive,exampleRange)));
+    }
+    @Test
+    public void testCombineBothNull() {
+    	assertNull("If range 2 is null range 1 is returned",
+		Range.combine(null,null));
+    }
+    
+    //Tests for combinedIgnoringNaN
+    @Test
+    public void testCombineIgnoringNaNRange2Null() {
+    	assertTrue("If range 2 is null range 1 is returned",
+		exampleRange.equals(Range.combineIgnoringNaN(exampleRange,null)));
+    }
+    @Test
+    public void testCombineIgnoringNaNRange1Null() {
+    	assertTrue("If range 1 is null range 2 is returned",
+		exampleRange.equals(Range.combineIgnoringNaN(null,exampleRange)));
+    }
+    @Test
+    public void testCombineIgnoringNaNRange1NullRange2NaN() {
+    	assertNull("If range 1 is null and range 2 NaN, null returned",
+		Range.combineIgnoringNaN(null,NaNRange));
+    }
+    @Test
+    public void testCombineIgnoringNaNBothNull() {
+    	assertNull("If range 1 is null and range 2 null, null returned",
+		Range.combineIgnoringNaN(null,null));
+    }
+    @Test
+    public void testCombineIgnoringNaNRange1NaNRange2Null() {
+    	assertNull("If range 1 is NaN and range 2 null, null returned",
+		Range.combineIgnoringNaN(NaNRange,null));
+    }
+    
+    @Test
+    public void testCombineIgnoringNaNBothValidRanges() {
+    	Range combinedRange = new Range(-10,100);
+    	assertTrue("Expects combined range of -10, 100",
+		combinedRange.equals(Range.combineIgnoringNaN(exampleRange,exampleRangePositive)));
+    }
+    @Test
+    public void testCombineIgnoringNaNRange1NaNRange2Valid() {
+    	assertTrue("If range 1 is NaN and range 2 valid, range 2 returned",
+    	exampleRange.equals(Range.combineIgnoringNaN(NaNRange,exampleRange)));
+    }
+    @Test
+    public void testCombineIgnoringNaNRange1ValidRange2NaN() {
+    	assertTrue("If range 1 is valid and range 2 NaN, range 1 returned",
+    	exampleRange.equals(Range.combineIgnoringNaN(exampleRange,NaNRange)));
+    }
+    @Test
+    public void testCombineIgnoringNaNBothNaN() {
+    	assertNull("If range 1 is valid and range 2 NaN, null returned",
+		Range.combineIgnoringNaN(NaNRange,NaNRange));
+    }
+    
+    // tests for expandToInclude
+    @Test
+    public void testExpandToIncludeRangeNull() {
+    	Range newRange = new Range(0,0);
+    	assertTrue("If the range is Null the returned range will be zero width with upper and lower bound equal to the passed value",
+    	newRange.equals(Range.expandToInclude(null,0)));
+    }
+    @Test
+    public void testExpandToIncludeValueInRange() {
+    	assertTrue("value 0 is in example range so return original range",
+    	exampleRange.equals(Range.expandToInclude(exampleRange,0)));
+    }
+    @Test
+    public void testExpandToIncludeValueBelowRange() {
+    	Range newRange = new Range(-15,10);
+    	assertTrue("the value -15 is below range so return expanded range -15 to 10",
+    	newRange.equals(Range.expandToInclude(exampleRange,-15)));
+    }
+    @Test
+    public void testExpandToIncludeValueAboveRange() {
+    	Range newRange = new Range(-10,15);
+    	assertTrue("the value 15 is aboverange so return expanded range -10 to 15",
+    	newRange.equals(Range.expandToInclude(exampleRange,15)));
+    }
+    
+    // tests for expand
+    @Test
+    public void testExpandIncreaseBothRanges() {
+    	Range newRange = new Range(-15,20);
+    	assertTrue("Expanding the range -10, 10 by 25% in both directiosn shoudl yield -15, 15",
+    	newRange.equals(Range.expand(exampleRange,0.25,0.5)));
+    }
+    @Test
+    public void testExpandReverseLowerAndUpper() {
+    	Range newRange = new Range(-10,10);
+    	assertTrue("Expanding each range by -100% should swap the lower and upper and result in the same range -10, 10",
+    	newRange.equals(Range.expand(exampleRange,-1,-1)));
+    }
+    
+    // tests for shift
+    @Test
+    public void testShiftPositiveDelta() {
+    	Range newRange = new Range(-5,15);
+    	assertTrue("Shifting a positive delta of 5 should yield a range of -5, 15",
+    	newRange.equals(Range.shift(exampleRange, 5)));
+    }
+    @Test
+    public void testShiftDeltaGreaterThanLowerBoundToZero() {
+    	Range newRange = new Range(0,25);
+    	assertTrue("Shifting a positive delta of 15 with no zero crossing should yield a range of -5, 15",
+    	newRange.equals(Range.shift(exampleRange, 15)));
+    }
+    @Test
+    public void testShiftDeltaGreaterThanUpperBoundToZero() {
+    	Range newRange = new Range(-25,0);
+    	assertTrue("Shifting a positive of 15 with no zero crossing should yield a range of -5, 15",
+    	newRange.equals(Range.shift(exampleRange, -15)));
+    }
+    @Test
+    public void testShiftRangeWithZeroBound() {
+    	Range newRange = new Range(10,10);
+    	assertTrue("Shifting a positive of 5 should yield a range of -5, 15",
+    	newRange.equals(Range.shift(exampleRangeZero, 10)));
+    }
+    @Test
+    public void testShiftAllowZeroCrossing() {
+    	Range newRange = new Range(5,25);
+    	assertTrue("Shifting a positive of 15 with zero crossing enabled should yield a range of 5, 25",
+    	newRange.equals(Range.shift(exampleRange, 15, true)));
+    }
+    
+    
+    //test for scale
+    @Test(expected = IllegalArgumentException.class)
+    public void testScaleNegativeScale() {
+    	Range.scale(exampleRange,-2);
+    }
+    @Test
+    public void testScalePositiveScale() {
+    	Range newRange = new Range(-20,20);
+    	assertTrue("scaling a range from -10,10 by 2 should yield a range of -20,20",
+    	newRange.equals(Range.scale(exampleRange,2)));
+    }
+    
+    //tests for equals
+    @Test
+    public void testEqualsObjectNotARange() {
+    	String str = "TEST";
+    	assertFalse("trying to equate a range to a string returns false",
+		exampleRange.equals(str));
+    }
+    @Test
+    public void testEqualsUpperRangeNotEquals() {
+    	Range newRange = new Range(-10,100);
+    	assertFalse("the upper bound of 100 is not equal to the upper bound of 10",
+		exampleRange.equals(newRange));
+	}
+    @Test
+    public void testEqualsLowerRangeNotEquals() {
+    	Range newRange = new Range(-100,10);
+    	assertFalse("the lower bound of -100 is not equal to the lower bound of -10",
+		exampleRange.equals(newRange));
+	}
+    
+    //tests for isNaNRange
+    @Test
+    public void testIsNaNRangeLowerIsNaN() {
+    	Range newRange = new Range(Double.NaN,0);
+    	assertFalse("The range NaN,0 should return false for isNaNRange",
+    	newRange.isNaNRange());
+    }
+    @Test
+    public void testIsNaNRangeUpperIsNaN() {
+    	Range newRange = new Range(0,Double.NaN);
+    	assertFalse("The range 0,NaN should return false for isNaNRange",
+    	newRange.isNaNRange());
+    }
+    @Test
+    public void testIsNaNRangeBothNaN() {
+    	assertTrue("The range NaN,NaN should return true for isNaNRange",
+    	NaNRange.isNaNRange());
+    }
+    @Test
+    public void testIsNaNRangeValidRange() {
+    	assertFalse("The range -10,10 should return false for isNaNRange",
+    	exampleRange.isNaNRange());
+    }
+    
+    // test toString method
+    @Test
+    public void testToString() {
+    	String str = "Range[-10.0,10.0]";
+    	assertTrue("The range -10.0,10.0 returns the string Range[-10.0,10.0]",
+    	str.equals(exampleRange.toString()));
+    }
+      
+    
     @After
     public void tearDown() throws Exception {
     }
