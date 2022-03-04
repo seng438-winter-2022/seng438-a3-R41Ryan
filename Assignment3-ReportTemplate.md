@@ -21,7 +21,7 @@ The JUnit Tests can be found in the JFreeChart_Lab3 folder where the test files 
 # 2 Manual data-flow coverage calculations for DataUtilities.calculateColumnTotal and Y methods
 
 ## Range
-![Range CFG](/media/range-cfg.jpeg)
+![Range CFG](/media/range-cfg.jpg)
 ### DU-Pairs
 None of the methods in Range that we tested in the previous lab assigned a value to a variable so none of the methods had DU-pairs.
 
@@ -114,7 +114,7 @@ The coverage metrics we reported were line (statement), branch, and method. We o
 
 # 7 A comparison on the advantages and disadvantages of requirements-based test generation and coverage-based test generation.
 
-| 		| Advantages | Disadvantages |
+| Test type | Advantages | Disadvantages |
 | Coverage | Allows for all possible code paths to be tested. Increases effectiveness of existing test code. | Requires a tool to be used. You need to test for multiple types of coverage. |
 | Requirements | Easier to plan. Easier to design tests. | Easier to miss sections of code |
 # 8 A discussion on how the team work/effort was divided and managed
@@ -128,4 +128,3 @@ One of the difficulties encountered was finding and getting various coverage too
 # 10 Comments/feedback on the lab itself
 
 The hamcrest library was again missing from this lab again even though it was required for the mocking in this lab. We were also not sure whether or not more coverage of the entire class of DataUtilities and Range were needed which caused some confusion so more explicitly stating that would have been helpful.
-
