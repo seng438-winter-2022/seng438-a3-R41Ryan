@@ -14,24 +14,37 @@ for each group. Please see each lab document for details.)
 
 # 1 Introduction
 
-Text…
+In this lab, we expanded our unit test suite from the previous lab, in order to improve branch, statement, and method coverage. We planned and created several tests by implementing white-box test case design, where we reviewed the code for each method and wrote test cases based on the lines/branches/statements we missed in the previous lab.
+
+The JUnit Tests can be found in the JFreeChart_Lab3 folder where the test files are in JFreeChart_Lab3/src/org/jfree/data/test. You can simply run the test as is in Eclipse.
 
 # 2 Manual data-flow coverage calculations for DataUtilities.calculateColumnTotal and Y methods
 
+## Range
+![Range CFG](/media/range-cfg.jpeg)
+### DU-Pairs
+None of the methods in Range that we tested in the previous lab assigned a value to a variable so none of the methods had DU-pairs.
+
+### Def-Use Sets Per Statement
+See above.
+
+###Test-Case DU-Pair Coverage
+See above.
+
 ## DataUtilities
 ![DataUtilities CFG](/media/data-utilities-cfg.jpg)
-### du-pairs
-| Variable    | Pairs    |
+### DU-Pairs
+| Variable	| Pairs	|
 |-------------------|---------|
-| data        | (1, 2), (1, 4), (1, 7) |
-| column    | (1,7) |
-| total        | (3, 11), (9, 11) |
-| rowCount    | (4, 6) |
-| r        | (5, 6), (5, 7), (5, 10), (10, 6), (10, 7) |
-| n        | (7, 8) (7, 9) |
+| data		| (1, 2), (1, 4), (1, 7) |
+| column	| (1,7) |
+| total		| (3, 11), (9, 11) |
+| rowCount	| (4, 6) |
+| r		| (5, 6), (5, 7), (5, 10), (10, 6), (10, 7) |
+| n		| (7, 8) (7, 9) |
 **Total: 14 DU-pairs**
 
-### def-use sets per statement
+### Def-Use Sets Per Statement
 **Statement 1**
 du(1, data)=
 {[1, 2],
@@ -85,11 +98,10 @@ Du(10, r)=
 
 # 3 A detailed description of the testing strategy for the new unit test
 
-Text…
+DataUtilities generally had high branch, line and method coverage with all of them being in the 60 percent range. Our plan was to increase the coverage in all three ways with our new tests. 
 
 # 4 A high level description of five selected test cases you have designed using coverage information, and how they have increased code coverage
-
-Text…
+ 
 
 # 5 A detailed report of the coverage achieved of each class and method (a screen shot from the code cover results in green and red color would suffice)
 
@@ -98,12 +110,13 @@ Text…
 # 6 Pros and Cons of coverage tools used and Metrics you report
 
 
-The coverage metrics we reported were instruction (statement), branch, and method.
+The coverage metrics we reported were line (statement), branch, and method. We only used eclemma for coverage calculations and eclemma was very easy to use. It was also already automatically downloaded on eclipse which also made things easier.
 
 # 7 A comparison on the advantages and disadvantages of requirements-based test generation and coverage-based test generation.
 
-| Advantages | Disadvantages |
-
+| 		| Advantages | Disadvantages |
+| Coverage | Allows for all possible code paths to be tested. Increases effectiveness of existing test code. | Requires a tool to be used. You need to test for multiple types of coverage. |
+| Requirements | Easier to plan. Easier to design tests. | Easier to miss sections of code |
 # 8 A discussion on how the team work/effort was divided and managed
 
 Every member had some part in each step specified in the instructions portion of the assignment. The team work/effort was divided based on the 2 classes; That is, for each instruction, one team worked on DataUtilities while the other team worked on Range.
@@ -114,5 +127,5 @@ One of the difficulties encountered was finding and getting various coverage too
 
 # 10 Comments/feedback on the lab itself
 
-The hamcrest library was again missing from this lab again even though it was required for the mocking in this lab. 
+The hamcrest library was again missing from this lab again even though it was required for the mocking in this lab. We were also not sure whether or not more coverage of the entire class of DataUtilities and Range were needed which caused some confusion so more explicitly stating that would have been helpful.
 
