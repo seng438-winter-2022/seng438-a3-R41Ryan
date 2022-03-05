@@ -23,13 +23,25 @@ The JUnit Tests can be found in the JFreeChart_Lab3 folder where the test files 
 ## Range
 ![Range CFG](/media/range-cfg.jpg)
 ### DU-Pairs
-None of the methods in Range that we tested in the previous lab assigned a value to a variable so none of the methods had DU-pairs.
+
+    lower = (1,1)
+
+    Upper = (1,1)
+
 
 ### Def-Use Sets Per Statement
-See above.
+du(1,lower) = 
 
-###Test-Case DU-Pair Coverage
-See above.
+    {[1]}
+du(1,upper) = 
+
+    {[1]}
+    
+### Test-Case DU-Pair Coverage  
+
+All tests will cover every DU pair as the method is a single line with no conditional execution  
+Therefore DU pair coverage should be 100%
+
 
 ## DataUtilities
 ![DataUtilities CFG](/media/data-utilities-cfg.jpg)
@@ -86,7 +98,7 @@ Du(10, r)=
 {[10, 6],
 [10, 6, 7, 8, 9, 10]}
 
-###Test-Case DU-Pair Coverage
+### Test-Case DU-Pair Coverage
 | Test | DU-Pairs covered | DU-Coverage |
 |-------|--------------------------|-------------------|
 | testBasicCalculateColumnTotal() | (3, 11), (9, 11), (4, 6), (5, 6), (5, 10), (10, 6), (10, 7), (7, 8), (7, 9) |9/14 = %64.3|
@@ -98,7 +110,11 @@ Du(10, r)=
 
 # 3 A detailed description of the testing strategy for the new unit test
 
-DataUtilities generally had high branch, line and method coverage with all of them being in the 60 percent range. Our plan was to increase the coverage in all three ways with our new tests. 
+DataUtilities generally had high branch, line and method coverage with all of them being in the 60 percent range. Our plan was to increase the coverage in all three ways with our new tests.  
+
+Range as a class had very low coverage for all metrics chosen mainly as a result of only being required to test 5 methods in assignment 2. As all the tested methods already had 100% coverage our plan was instead to write new tests for the remaining range methods to increase coverage.
+
+This was mainly achieved by referencing the documentation for each method to determine the exected outcome then using the code coverage tools with thhe provided source code to determine which areas were not being tested and adjust our test suite accordingly.
 
 # 4 A high level description of five selected test cases you have designed using coverage information, and how they have increased code coverage
  
