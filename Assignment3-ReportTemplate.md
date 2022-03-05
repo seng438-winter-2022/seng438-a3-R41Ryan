@@ -127,6 +127,7 @@ Beyond that the availability of coverage tools and the source code allowed us to
 
 
 # 5 A detailed report of the coverage achieved of each class and method
+Old coverage before the new tests were written can be found in the oldCoverage folder.
 
 ## Range
 
