@@ -114,7 +114,7 @@ DataUtilities generally had high branch, line and method coverage with all of th
 
 Range as a class had very low coverage for all metrics chosen mainly as a result of only being required to test 5 methods in assignment 2. As all the tested methods already had 100% coverage our plan was instead to write new tests for the remaining range methods to increase coverage.
 
-This was mainly achieved by referencing the documentation for each method to determine the exected outcome then using the code coverage tools with thhe provided source code to determine which areas were not being tested and adjust our test suite accordingly.
+This was mainly achieved by referencing the documentation for each method to determine the exected outcome then using the code coverage tools with the provided source code to determine which areas were not being tested and adjust our test suite accordingly.
 
 # 4 A high level description of five selected test cases you have designed using coverage information, and how they have increased code coverage
  
