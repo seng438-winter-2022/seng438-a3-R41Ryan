@@ -115,6 +115,7 @@ The coverage metrics we reported were line (statement), branch, and method. We o
 # 7 A comparison on the advantages and disadvantages of requirements-based test generation and coverage-based test generation.
 
 | Test type | Advantages | Disadvantages |
+|-------|--------------------------|-------------------|
 | Coverage | Allows for all possible code paths to be tested. Increases effectiveness of existing test code. | Requires a tool to be used. You need to test for multiple types of coverage. |
 | Requirements | Easier to plan. Easier to design tests. | Easier to miss sections of code |
 # 8 A discussion on how the team work/effort was divided and managed
