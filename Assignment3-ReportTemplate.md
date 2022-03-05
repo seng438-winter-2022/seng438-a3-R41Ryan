@@ -118,7 +118,7 @@ This was mainly achieved by referencing the documentation for each method to det
 
 # 4 A high level description of five selected test cases you have designed using coverage information, and how they have increased code coverage
  
-When designing test cases for the clone() and createNumberArray2D() methods in DataUtilities, our goal was to increase coverage in all three metrics, as we didn’t test those methods in the previous lab. In order to increase branch coverage for the clone() method, we wrote two tests, testFullClone() and testNullClone() that each triggered a branch of the if statement, and both branches of the for loop.  To increase line coverage we simply ensured our test cases ran through as many lines of the methods as possible. Increasing method coverage was just as simple, as coverage for clone() was done in the previous two tests we only needed to write a single test, testCreateNumberArray2d(), for createNumberArray2D() to ensure that the method was tested.
+When designing test cases for the clone() and createNumberArray2D() methods in DataUtilities, our goal was to increase coverage in all three metrics, as we didn’t test those methods in the previous lab. In order to increase branch coverage for the clone() method, we wrote two tests, testFullClone() and testNullClone(). that each triggered a branch of the if statement, and both branches of the for loop.  To increase line coverage we simply ensured our test cases ran through as many lines of the methods as possible. Increasing method coverage was just as simple, as coverage for clone() was done in the previous two tests we only needed to write a single test, testCreateNumberArray2d(), for createNumberArray2D() to ensure that the method was tested.
 
 Most of the tests for range were designed to cover new methods that were previously untested based on the suite designed in assignment 2. One exception is the test for the range constructor, which with the addition of the source code we were able to see that it had handling for arguments where the lower boundary argument was larger than the upper boundary. Based on this we were able to create a test which expected an IllegalArguemntException which we had previously not considered. This was tested in the method testConstructorLowerGreaterThanUpper().
 
@@ -155,8 +155,8 @@ The coverage metrics we reported were line (statement), branch, and method. We o
 
 | Test type | Advantages | Disadvantages |
 |-------|--------------------------|-------------------|
-| Coverage | Allows for all possible code paths to be tested. Increases effectiveness of existing test code. | Requires a tool to be used. You need to test for multiple types of coverage. |
-| Requirements | Easier to plan. Easier to design tests. | Easier to miss sections of code |
+| Coverage | - Allows for all possible code paths to be tested.<br> - Increases effectiveness of existing test code. | - Requires a tool to be used.<br> - You need to test for multiple types of coverage. |
+| Requirements | - Easier to plan.<br> - Easier to design tests. | - Easier to miss sections of code |
 # 8 A discussion on how the team work/effort was divided and managed
 
 Every member had some part in each step specified in the instructions portion of the assignment. The team work/effort was divided based on the 2 classes, for each instruction one team worked on DataUtilities while the other team worked on Range. These 2 teams then developed manual data flow tests and expanded the junit test suite to increase coverage across each class to the requirements specified in the assignment outline.
