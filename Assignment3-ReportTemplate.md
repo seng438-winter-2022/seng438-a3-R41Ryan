@@ -117,7 +117,8 @@ Range as a class had very low coverage for all metrics chosen mainly as a result
 This was mainly achieved by referencing the documentation for each method to determine the exected outcome then using the code coverage tools with the provided source code to determine which areas were not being tested and adjust our test suite accordingly.
 
 # 4 A high level description of five selected test cases you have designed using coverage information, and how they have increased code coverage
- 
+
+When designing test cases for the clone() and createNumberArray2D() methods in DataUtilities, our goal was to increase coverage in all three metrics, as we didn’t test those methods in the previous lab. In order to increase branch coverage for the clone() method, we wrote two tests that each triggered a branch of the if statement, and both branches of the for loop. To increase line coverage we simply ensured our test cases ran through as many lines of the methods as possible. Increasing method coverage was just as simple, as coverage for clone() was done in the previous two tests and we only needed to write a single test for createNumberArray2D() to ensure that the method was tested.
 
 # 5 A detailed report of the coverage achieved of each class and method (a screen shot from the code cover results in green and red color would suffice)
 
