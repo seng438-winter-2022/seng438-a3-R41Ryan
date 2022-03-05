@@ -118,7 +118,13 @@ This was mainly achieved by referencing the documentation for each method to det
 
 # 4 A high level description of five selected test cases you have designed using coverage information, and how they have increased code coverage
  
- When designing test cases for the clone() and createNumberArray2D() methods in DataUtilities, our goal was to increase coverage in all three metrics, as we didn’t test those methods in the previous lab. In order to increase branch coverage for the clone() method, we wrote two tests that each triggered a branch of the if statement, and both branches of the for loop. To increase line coverage we simply ensured our test cases ran through as many lines of the methods as possible. Increasing method coverage was just as simple, as coverage for clone() was done in the previous two tests and we only needed to write a single test for createNumberArray2D() to ensure that the method was tested.
+When designing test cases for the clone() and createNumberArray2D() methods in DataUtilities, our goal was to increase coverage in all three metrics, as we didn’t test those methods in the previous lab. In order to increase branch coverage for the clone() method, we wrote two tests that each triggered a branch of the if statement, and both branches of the for loop. To increase line coverage we simply ensured our test cases ran through as many lines of the methods as possible. Increasing method coverage was just as simple, as coverage for clone() was done in the previous two tests and we only needed to write a single test for createNumberArray2D() to ensure that the method was tested.
+
+Most of the tests for range were designed to cover new methods that were previously untested based on the suite designed in assignment 2. One exception is the test for the range constructor, which with the addition of the source code we were able to see that it had handling for arguments where the lower boundary argument was larger than the upper boundary. Based on this we were able to create a test which expected an IllegalArguemntException which we had previously not considered. This was tested in the method testConstructorLowerGreaterThanUpper().
+
+Beyond that the availability of coverage tools and the source code allowed us to properly ensure more branches were covered for example in the constrain() method we were able to ensure all reachable branches were covered, and also see that second if statement had an unreachable branch where it expected a value to not be contained in the range but also not be greater than the upper bound or lower than the lower bound which is impossible. This method was tested in the testConstainValue(In/Above/Below)Range() tests.
+
+
 
 # 5 A detailed report of the coverage achieved of each class and method
 
