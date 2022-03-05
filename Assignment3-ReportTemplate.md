@@ -18,7 +18,7 @@ In this lab, we expanded our unit test suite from the previous lab, in order to 
 
 The JUnit Tests can be found in the JFreeChart_Lab3 folder where the test files are in JFreeChart_Lab3/src/org/jfree/data/test. You can simply run the test as is in Eclipse.
 
-# 2 Manual data-flow coverage calculations for DataUtilities.calculateColumnTotal and Y methods
+# 2 Manual data-flow coverage calculations for DataUtilities.calculateColumnTotal and Range.getLength methods
 
 ## Range
 ![Range CFG](/media/range-cfg.jpg)
