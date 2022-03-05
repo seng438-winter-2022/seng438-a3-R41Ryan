@@ -125,8 +125,7 @@ Text…
 
 # 6 Pros and Cons of coverage tools used and Metrics you report
 
-
-The coverage metrics we reported were line (statement), branch, and method. We only used eclemma for coverage calculations and eclemma was very easy to use. It was also already automatically downloaded on eclipse which also made things easier.
+The coverage metrics we reported were line (statement), branch, and method. We only used EclEmma for coverage calculations and EclEmma proved to be very easy to use. Our decision to use only EclEmma was based on the fact that is was already installed in eclipse, saving any time that would be spent trying to get other porgrams working. Additionally it covered two of the suggested metrics, line and statement, and no other coverage software we researched providied condition coverage so nothing was missed by using EclEmma.
 
 # 7 A comparison on the advantages and disadvantages of requirements-based test generation and coverage-based test generation.
 
@@ -136,7 +135,7 @@ The coverage metrics we reported were line (statement), branch, and method. We o
 | Requirements | Easier to plan. Easier to design tests. | Easier to miss sections of code |
 # 8 A discussion on how the team work/effort was divided and managed
 
-Every member had some part in each step specified in the instructions portion of the assignment. The team work/effort was divided based on the 2 classes; That is, for each instruction, one team worked on DataUtilities while the other team worked on Range.
+Every member had some part in each step specified in the instructions portion of the assignment. The team work/effort was divided based on the 2 classes, for each instruction one team worked on DataUtilities while the other team worked on Range. These 2 teams then developed manual data flow tests and expanded the junit test suite to increase coverage across each class to the requirements specified in the assignment outline.
 
 # 9 Any difficulties encountered, challenges overcome, and lessons learned from performing the lab
 
